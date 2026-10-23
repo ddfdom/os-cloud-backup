@@ -1,0 +1,83 @@
+<model>
+    <mount>//system/backup/s3</mount>
+    <version>1.0.0</version>
+    <description>S3 backup settings</description>
+    <items>
+        <enabled type="BooleanField">
+            <Default>0</Default>
+            <Required>Y</Required>
+        </enabled>
+        <endpoint type="TextField">
+            <Mask>/^https?:\/\/[^\/\s"']+$/</Mask>
+            <ValidationMessage>The endpoint must be an http(s) URL without path or trailing slash.</ValidationMessage>
+            <Constraints>
+                <check001>
+                    <ValidationMessage>An endpoint must be set.</ValidationMessage>
+                    <type>DependConstraint</type>
+                    <addFields>
+                        <field1>enabled</field1>
+                    </addFields>
+                </check001>
+            </Constraints>
+        </endpoint>
+        <region type="TextField">
+            <Default>us-east-1</Default>
+            <Mask>/^[a-z0-9\-]+$/</Mask>
+            <Constraints>
+                <check001>
+                    <ValidationMessage>A region must be set.</ValidationMessage>
+                    <type>DependConstraint</type>
+                    <addFields>
+                        <field1>enabled</field1>
+                    </addFields>
+                </check001>
+            </Constraints>
+        </region>
+        <bucket type="TextField">
+            <Mask>/^[a-z0-9][a-z0-9.\-]{1,61}[a-z0-9]$/</Mask>
+            <ValidationMessage>Invalid bucket name.</ValidationMessage>
+            <Constraints>
+                <check001>
+                    <ValidationMessage>A bucket must be set.</ValidationMessage>
+                    <type>DependConstraint</type>
+                    <addFields>
+                        <field1>enabled</field1>
+                    </addFields>
+                </check001>
+            </Constraints>
+        </bucket>
+        <access_key type="TextField">
+            <Constraints>
+                <check001>
+                    <ValidationMessage>An access key must be set.</ValidationMessage>
+                    <type>DependConstraint</type>
+                    <addFields>
+                        <field1>enabled</field1>
+                    </addFields>
+                </check001>
+            </Constraints>
+        </access_key>
+        <secret_key type="UpdateOnlyTextField">
+            <Constraints>
+                <check001>
+                    <ValidationMessage>A secret key must be set.</ValidationMessage>
+                    <type>DependConstraint</type>
+                    <addFields>
+                        <field1>enabled</field1>
+                    </addFields>
+                </check001>
+            </Constraints>
+        </secret_key>
+        <path type="TextField">
+            <Mask>/^([\w.\-]+\/)*[\w.\-]+$/</Mask>
+            <ValidationMessage>The directory can only consist of alphanumeric characters, dots, dashes, underscores and slashes, without leading or trailing slash.</ValidationMessage>
+        </path>
+        <password_encryption type="UpdateOnlyTextField"/>
+        <numbackups type="IntegerField">
+            <MinimumValue>1</MinimumValue>
+        </numbackups>
+        <numdays type="IntegerField">
+            <MinimumValue>1</MinimumValue>
+        </numdays>
+    </items>
+</model>

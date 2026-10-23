@@ -1,0 +1,62 @@
+<model>
+    <mount>//system/backup/sftp</mount>
+    <version>1.0.0</version>
+    <description>SFTP backup settings</description>
+    <items>
+        <enabled type="BooleanField">
+            <Default>0</Default>
+            <Required>Y</Required>
+        </enabled>
+        <host type="HostnameField">
+            <Constraints>
+                <check001>
+                    <ValidationMessage>A server must be set.</ValidationMessage>
+                    <type>DependConstraint</type>
+                    <addFields>
+                        <field1>enabled</field1>
+                    </addFields>
+                </check001>
+            </Constraints>
+        </host>
+        <port type="PortField">
+            <Default>22</Default>
+            <Required>Y</Required>
+        </port>
+        <user type="TextField">
+            <Mask>/^[\w.\-]+$/</Mask>
+            <Constraints>
+                <check001>
+                    <ValidationMessage>A user name must be set.</ValidationMessage>
+                    <type>DependConstraint</type>
+                    <addFields>
+                        <field1>enabled</field1>
+                    </addFields>
+                </check001>
+            </Constraints>
+        </user>
+        <private_key type="UpdateOnlyTextField">
+            <Mask>/^\s*-----BEGIN [A-Z ]*PRIVATE KEY-----[\s\S]+-----END [A-Z ]*PRIVATE KEY-----\s*$/</Mask>
+            <ValidationMessage>The private key must be in OpenSSH or PEM format.</ValidationMessage>
+            <Constraints>
+                <check001>
+                    <ValidationMessage>A private key must be set.</ValidationMessage>
+                    <type>DependConstraint</type>
+                    <addFields>
+                        <field1>enabled</field1>
+                    </addFields>
+                </check001>
+            </Constraints>
+        </private_key>
+        <path type="TextField">
+            <Mask>/^\/?([\w.\-]+\/)*[\w.\-]+$/</Mask>
+            <ValidationMessage>The directory can only consist of alphanumeric characters, dots, dashes, underscores and slashes, without trailing slash.</ValidationMessage>
+        </path>
+        <password_encryption type="UpdateOnlyTextField"/>
+        <numbackups type="IntegerField">
+            <MinimumValue>1</MinimumValue>
+        </numbackups>
+        <numdays type="IntegerField">
+            <MinimumValue>1</MinimumValue>
+        </numdays>
+    </items>
+</model>

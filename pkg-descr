@@ -1,0 +1,11 @@
+Adds two remote backup providers to System: Configuration: Backups:
+an S3 compatible bucket (AWS, MinIO, Wasabi, Scaleway, OVH...) and an
+SFTP server (SSH key authentication). Backups run with the core remote
+backup cron job and old copies are pruned by count and/or age.
+
+Plugin Changelog
+================
+
+1.0
+
+* Initial release
